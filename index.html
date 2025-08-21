@@ -448,7 +448,7 @@
           <line x1="10" x2="21" y1="14" y2="3" />
         </svg>
         <div class="link-icon">
-          <img src="images/discord.png" alt="dc icon">
+          <img src="images/discord2.png" alt="dc icon">
         </div>
         <div class="link-text">
           <p class="link-title">DISCORD!</p>
@@ -483,11 +483,20 @@
     </footer>
   </div>
   <script>
+    const emojis = ['👽']; 
+
     function createFallingEmoji() {
       const emoji = document.createElement('div');
-      emoji.textContent = '👽'; 
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)]; 
       emoji.classList.add('falling-emoji');
-      emoji.style.left = Math.random() * 100 + 'vw';
+      
+      const isLeft = Math.random() < 0.5;
+      if (isLeft) {
+        emoji.style.left = Math.random() * 20 + 'vw';
+      } else {
+        emoji.style.left = (Math.random() * 20 + 80) + 'vw';
+      }
+
       emoji.style.fontSize = Math.random() * 30 + 20 + 'px'; 
       emoji.style.animationDuration = Math.random() * 8 + 5 + 's'; 
       document.getElementById('emoji-container').appendChild(emoji);
