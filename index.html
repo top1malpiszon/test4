@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mamm0n</title>
-  <link rel="shortcut icon" type="image/mamon.png" href="images/mamon.png">
+  <link rel="shortcut icon" type="image/png" href="images/mamon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +24,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
+      position: relative;
     }
 
     @keyframes ocean-waves {
@@ -43,6 +44,8 @@
       box-sizing: border-box;
       text-align: center;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .profile-avatar {
@@ -165,9 +168,9 @@
     }
 
     .social-icons-container .link-icon {
-      width: 32px;
-      height: 32px;
-      margin-right: 10px;
+      width: 48px;
+      height: 48px;
+      margin-right: 15px;
     }
 
     .social-icons-container .link-title {
@@ -276,15 +279,48 @@
     .link-button:hover .link-loading-bar {
       width: 100%;
     }
+
+    #emoji-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .falling-emoji {
+      position: absolute;
+      top: -50px;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      z-index: 0;
+      white-space: nowrap;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <div id="emoji-container"></div>
 
   <div class="page-container">
     <header class="profile-header">
       <div class="profile-avatar">
-        <img src="images/meesyka.png" alt="meesyka Avatar" class="avatar-image">
+        <img src="images/mamon.png" alt="mamon Avatar" class="avatar-image">
       </div>
       <h1 class="profile-name">Mamm0n</h1>
       <p class="profile-contact">
@@ -400,7 +436,7 @@
         </div>
         <div class="link-text">
           <p class="link-title">Hauki - 10% rabatu!</p>
-          <p class="link-subtitle">Kod: MAMMON</p>
+          <p class="link-subtitle"></p>
         </div>
         <div class="link-loading-bar"></div>
       </a>
@@ -446,6 +482,23 @@
       i nie ponosimy odpowiedzialności za skutki korzystania z tych serwisów.
     </footer>
   </div>
+  <script>
+    function createFallingEmoji() {
+      const emoji = document.createElement('div');
+      emoji.textContent = '👽'; 
+      emoji.classList.add('falling-emoji');
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.fontSize = Math.random() * 30 + 20 + 'px'; 
+      emoji.style.animationDuration = Math.random() * 8 + 5 + 's'; 
+      document.getElementById('emoji-container').appendChild(emoji);
+
+      emoji.addEventListener('animationend', () => {
+        emoji.remove();
+      });
+    }
+
+    setInterval(createFallingEmoji, 4000);
+  </script>
 </body>
 
 </html>
